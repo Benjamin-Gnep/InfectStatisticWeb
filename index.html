@@ -52,6 +52,28 @@
     </ul>
     <br/>
     <br/>
+    <table align="center" border="0" style="margin-bottom:0px" width="80%" height="10px">
+        <tr>
+        <th><p style="font-size:30px;color:Crimson;">确诊人数    </p></th>
+        <th>  </th>
+        <th><p style="font-size:30px;color:Orange">疑似人数    </p></th>
+        <th>  </th>
+        <th><p style="font-size:30px;color:Green">治愈人数    </p></th>
+        <th>  </th>
+        <th><p style="font-size:30px;color:DarkBlue">死亡人数    </p></th>
+        <tr/>
+        <tr>
+        <td><p style="font-size:30px;color:Crimson;" align="center">1000</p></td>
+        <td>  </td>
+        <td><p style="font-size:30px;color:Orange" align="center">1000</p></td>
+        <td>  </td>
+        <td><p style="font-size:30px;color:Green" align="center">1000</p></td>
+        <td>  </td>
+        <td><p style="font-size:30px;color:DarkBlue" align="center">1000</p></td>
+        </tr>
+    </table>
+
+    <br/>
 <div id="container" style="position:fixed;height: 90%;width:95%;background:white;margin:25px 25px;"></div>
 
 <script>
@@ -65,7 +87,7 @@
     // 绘制图表，准备数据
    option = {
     dataRange: {
-            color: ['Crimson', 'white'],
+            color: ['Crimson','OrangeRed','Orange','Bisque','OldLace','White'],
             range: [0, 2000],
             min: 0,
             max: 2000,
@@ -85,7 +107,7 @@
     legend: {
         orient: 'vertical',
         left: 'left',
-        data:['确诊人数']
+        data:['确诊人数','疑似人数']
     },
     visualMap: {
         min: 0,
@@ -111,6 +133,57 @@
     series : [
         {
             name: '确诊人数',
+            type: 'map',
+            mapType: 'china',
+            roam: false,
+            label: {
+                normal: {
+                    show: false
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            data:[
+                {name: '北京',value: Math.round(Math.random()*1000)},
+                {name: '天津',value: Math.round(Math.random()*1000)},
+                {name: '上海',value: Math.round(Math.random()*1000)},
+                {name: '重庆',value: Math.round(Math.random()*1000)},
+                {name: '河北',value: Math.round(Math.random()*1000)},
+                {name: '河南',value: Math.round(Math.random()*1000)},
+                {name: '云南',value: Math.round(Math.random()*1000)},
+                {name: '辽宁',value: Math.round(Math.random()*1000)},
+                {name: '黑龙江',value: Math.round(Math.random()*1000)},
+                {name: '湖南',value: Math.round(Math.random()*1000)},
+                {name: '安徽',value: Math.round(Math.random()*1000)},
+                {name: '山东',value: Math.round(Math.random()*1000)},
+                {name: '新疆',value: Math.round(Math.random()*1000)},
+                {name: '江苏',value: Math.round(Math.random()*1000)},
+                {name: '浙江',value: Math.round(Math.random()*1000)},
+                {name: '江西',value: Math.round(Math.random()*1000)},
+                {name: '湖北',value: obj["20200310"]["湖北"].current[0]},
+                {name: '广西',value: Math.round(Math.random()*1000)},
+                {name: '甘肃',value: Math.round(Math.random()*1000)},
+                {name: '山西',value: Math.round(Math.random()*1000)},
+                {name: '内蒙古',value: Math.round(Math.random()*1000)},
+                {name: '陕西',value: Math.round(Math.random()*1000)},
+                {name: '吉林',value: Math.round(Math.random()*1000)},
+                {name: '福建',value: 0},
+                {name: '贵州',value: 80},
+                {name: '广东',value: 200},
+                {name: '青海',value: 500},
+                {name: '西藏',value: 1000},
+                {name: '四川',value: 2000},
+                {name: '宁夏',value: Math.round(Math.random()*1000)},
+                {name: '海南',value: Math.round(Math.random()*1000)},
+                {name: '台湾',value: 5000},
+                {name: '香港',value: Math.round(Math.random()*1000)},
+                {name: '澳门',value: Math.round(Math.random()*1000)}
+            ]
+        },
+
+        {
+            name: '疑似人数',
             type: 'map',
             mapType: 'china',
             roam: false,
