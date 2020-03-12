@@ -7,6 +7,7 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/echarts.min.js"></script>
 <script src="js/china.js"></script>
+<script src="js/webData.js"></script>
 <style>
     body{margin: 0;}
     ul{
@@ -51,9 +52,11 @@
     </ul>
     <br/>
     <br/>
-<div id="container" style="position:fixed;height: 90%;width:95%;background:white;margin:25px 25px;" align="center"></div>
+<div id="container" style="position:fixed;height: 90%;width:95%;background:white;margin:25px 25px;"></div>
 
-<script type="text/javascript">
+<script>
+    let obj = eval(dataJson);
+
     // 全国省份列表
     var dataMap = [{ name: '北京' }, { name: '天津' }, { name: '上海' }, { name: '重庆' }, { name: '河北' }, { name: '河南' }, { name: '云南' }, { name: '辽宁' }, { name: '黑龙江' }, { name: '湖南' }, { name: '安徽' }, { name: '山东' },
     { name: '新疆' }, { name: '江苏' }, { name: '浙江' }, { name: '江西' }, { name: '湖北' }, { name: '广西' }, { name: '甘肃' }, { name: '山西' }, { name: '内蒙古' }, { name: '陕西' }, { name: '吉林' }, { name: '福建' }, { name: '贵州' },
@@ -68,7 +71,7 @@
             max: 2000,
             show: true,
             realtime: true,
-            calculable: true
+            calculable: true,
         },
     title : {
         text: '疫情统计地图',
@@ -136,7 +139,7 @@
                 {name: '江苏',value: Math.round(Math.random()*1000)},
                 {name: '浙江',value: Math.round(Math.random()*1000)},
                 {name: '江西',value: Math.round(Math.random()*1000)},
-                {name: '湖北',value: Math.round(Math.random()*1000)},
+                {name: '湖北',value: obj["20200310"]["湖北"].current[0]},
                 {name: '广西',value: Math.round(Math.random()*1000)},
                 {name: '甘肃',value: Math.round(Math.random()*1000)},
                 {name: '山西',value: Math.round(Math.random()*1000)},
