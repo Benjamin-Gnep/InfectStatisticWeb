@@ -53,26 +53,28 @@
     <br/>
     <br/>
     
-    <p style="font-size:15px;color:LightSlateGray;margin-left: 3%;margin-top: 3%;">最后更新日期：2020-03-12</p>
-
+    <div style="margin-top: 3%;">
+        <span style="font-size:15px;color:LightSlateGray;margin-left: 3%;">最后更新日期：</span>
+        <span id="currentDate" style="font-size:15px;color:LightSlateGray;">2020-03-11</span>
+    </div>
     <table align="center" border="0" style="margin-bottom:0px" width="80%" height="10px">
         <tr>
-        <th><p style="font-size:30px;color:Crimson;">确诊人数    </p></th>
+        <th><p style="font-size:30px;color:Crimson;">累计确诊    </p></th>
         <th>  </th>
-        <th><p style="font-size:30px;color:Orange">疑似人数    </p></th>
+        <th><p style="font-size:30px;color:Orange">现有疑似    </p></th>
         <th>  </th>
-        <th><p style="font-size:30px;color:Green">治愈人数    </p></th>
+        <th><p style="font-size:30px;color:Green">累计治愈    </p></th>
         <th>  </th>
-        <th><p style="font-size:30px;color:DarkBlue">死亡人数    </p></th>
-        <tr/>
+        <th><p style="font-size:30px;color:DarkBlue">累计死亡    </p></th>
+        </tr>
         <tr>
-        <td><p style="font-size:30px;color:Crimson;" align="center">1000</p></td>
+        <td><p id="totalIP" style="font-size:30px;color:Crimson;" align="center">1000</p></td>
         <td>  </td>
-        <td><p style="font-size:30px;color:Orange" align="center">1000</p></td>
+        <td><p id="currentSP" style="font-size:30px;color:Orange" align="center">1000</p></td>
         <td>  </td>
-        <td><p style="font-size:30px;color:Green" align="center">1000</p></td>
+        <td><p id="totalCure" style="font-size:30px;color:Green" align="center">1000</p></td>
         <td>  </td>
-        <td><p style="font-size:30px;color:DarkBlue" align="center">1000</p></td>
+        <td><p id="totalDeath" style="font-size:30px;color:DarkBlue" align="center">1000</p></td>
         </tr>
     </table>
 
@@ -81,6 +83,16 @@
 
 <script>
     let obj = eval(dataJson);
+    let date = document.getElementById("currentDate");
+    let num1 = document.getElementById("totalIP");
+    let num2 = document.getElementById("currentSP");
+    let num3 = document.getElementById("totalCure");
+    let num4 = document.getElementById("totalDeath");
+    
+    num1.textContent = obj[currentDate.textContent]["全国"].current[0];
+    num2.textContent = obj[currentDate.textContent]["全国"].current[2];
+    num3.textContent = obj[currentDate.textContent]["全国"].current[3];
+    num4.textContent = obj[currentDate.textContent]["全国"].current[4];
 
     // 全国省份列表
     var dataMap = [{ name: '北京' }, { name: '天津' }, { name: '上海' }, { name: '重庆' }, { name: '河北' }, { name: '河南' }, { name: '云南' }, { name: '辽宁' }, { name: '黑龙江' }, { name: '湖南' }, { name: '安徽' }, { name: '山东' },
@@ -148,8 +160,8 @@
                 }
             },
             data:[
-                {name: '北京',value: Math.round(Math.random()*1000)},
-                {name: '天津',value: Math.round(Math.random()*1000)},
+                {name: '北京',value: obj[currentDate.textContent]["北京"].current[0]},
+                {name: '天津',value: obj[currentDate.textContent]["天津"].current[0]},
                 {name: '上海',value: Math.round(Math.random()*1000)},
                 {name: '重庆',value: Math.round(Math.random()*1000)},
                 {name: '河北',value: Math.round(Math.random()*1000)},
@@ -164,7 +176,7 @@
                 {name: '江苏',value: Math.round(Math.random()*1000)},
                 {name: '浙江',value: Math.round(Math.random()*1000)},
                 {name: '江西',value: Math.round(Math.random()*1000)},
-                {name: '湖北',value: obj["20200310"]["湖北"].current[0]},
+                {name: '湖北',value: 1},
                 {name: '广西',value: Math.round(Math.random()*1000)},
                 {name: '甘肃',value: Math.round(Math.random()*1000)},
                 {name: '山西',value: Math.round(Math.random()*1000)},
@@ -199,7 +211,7 @@
                 }
             },
             data:[
-                {name: '北京',value: Math.round(Math.random()*1000)},
+                {name: '北京',value: 1},
                 {name: '天津',value: Math.round(Math.random()*1000)},
                 {name: '上海',value: Math.round(Math.random()*1000)},
                 {name: '重庆',value: Math.round(Math.random()*1000)},
@@ -215,7 +227,7 @@
                 {name: '江苏',value: Math.round(Math.random()*1000)},
                 {name: '浙江',value: Math.round(Math.random()*1000)},
                 {name: '江西',value: Math.round(Math.random()*1000)},
-                {name: '湖北',value: obj["20200310"]["湖北"].current[0]},
+                {name: '湖北',value: 1},
                 {name: '广西',value: Math.round(Math.random()*1000)},
                 {name: '甘肃',value: Math.round(Math.random()*1000)},
                 {name: '山西',value: Math.round(Math.random()*1000)},
