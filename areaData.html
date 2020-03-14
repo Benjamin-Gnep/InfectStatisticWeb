@@ -90,7 +90,7 @@
     <option value = "云南">云南</option>
     <option value = "浙江">浙江</option>
     </select>
-    <button id = "submit">确定</button>
+    <button id = "okay">确定</button>
     </p>
     </form>
     </div>
@@ -125,14 +125,13 @@
     let pName = qs["province"];
     setSelectChecked("provinceName",pName);
 
-    let sub = document.getElementById("submit");
-    sub.addEventListener("click",flash);
-
-    function flash(){
+    let okay = document.getElementById("okay");
+    okay.addEventListener("click",function (e){
+        e.preventDefault();
         let form = document.getElementById("provinceName")
         let selected = form.options[form.selectedIndex].text;
-        alert(location.search = "province=" + selected);
-    }
+        location.search = "?province=" + selected;
+    });
 
 </script>
 
