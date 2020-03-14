@@ -44,7 +44,7 @@
 <body>
     <ul>
       <li><a href="index.html" style="float:left">疫情地图</a></li>
-     <li><a href="areaData.html" style="float:left">区域统计</a></li>
+     <li><a href="areaData.html?province=澳门" style="float:left">区域统计</a></li>
      <li><a href="tableData.html" style="float:left">数据总览</a></li>
      <li><a href="about.html" style="float:right">关于</a></li>
     </ul>
@@ -90,7 +90,7 @@
     <option value = "云南">云南</option>
     <option value = "浙江">浙江</option>
     </select>
-    <input type="submit" value="确定"/>
+    <button id = "submit">确定</button>
     </p>
     </form>
     </div>
@@ -123,9 +123,17 @@
 
     let obj = eval(dataJson);
     let pName = qs["province"];
-    alert(pName);
     setSelectChecked("provinceName",pName);
-    
+
+    let sub = document.getElementById("submit");
+    sub.addEventListener("click",flash);
+
+    function flash(){
+        let form = document.getElementById("provinceName")
+        let selected = form.options[form.selectedIndex].text;
+        alert(location.search = "province=" + selected);
+    }
+
 </script>
 
 <script type="text/javascript">
@@ -137,7 +145,7 @@
         color:['Crimson', 'Orange', 'Green','DarkBlue'],
         // 标题
         title: {
-            text: pName,
+            text: pName + "近期趋势",
             subtext:'点击右上角图标切换视图',
             left:'left',
             borderColor:'red',
@@ -170,7 +178,7 @@
         },
         // 图例
         legend: {
-            data: ['累计确诊',"现有疑似","累计治愈","累计死亡"]
+            data: ['新增确诊人数',"新增疑似人数","新增治愈人数","新增死亡人数"]
         },
         // x轴
         xAxis: {
@@ -185,7 +193,7 @@
         }],
         // 数据
         series: [{
-            name: '确诊人数',
+            name: '新增确诊人数',
             type: 'bar',
             data: [obj["2020-03-07"][pName].add[0]
                 , obj["2020-03-08"][pName].add[0]
@@ -208,7 +216,7 @@
             }
         },
         {
-            name: '疑似人数',
+            name: '新增疑似人数',
             type: 'bar',
             data: [obj["2020-03-07"][pName].add[2]
                 , obj["2020-03-08"][pName].add[2]
@@ -228,7 +236,7 @@
             }
         },
         {
-            name: '治愈人数',
+            name: '新增治愈人数',
             type: 'bar',
             data: [obj["2020-03-07"][pName].add[3]
                 , obj["2020-03-08"][pName].add[3]
@@ -248,7 +256,7 @@
             }
         },
         {
-            name: '死亡人数',
+            name: '新增死亡人数',
             type: 'bar',
             data: [obj["2020-03-07"][pName].add[3]
                 , obj["2020-03-08"][pName].add[3]

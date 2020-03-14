@@ -46,7 +46,7 @@
 <body>
     <ul>
       <li><a href="index.html" style="float:left">疫情地图</a></li>
-     <li><a href="areaData.html" style="float:left">区域统计</a></li>
+     <li><a href="areaData.html?province=澳门" style="float:left">区域统计</a></li>
      <li><a href="tableData.html" style="float:left">数据总览</a></li>
      <li><a href="about.html" style="float:right">关于</a></li>
     </ul>
@@ -258,9 +258,7 @@
         var city = params.name;
         console.log(params.name);
         var urlArr = 'areaData.html';
-        if(params.name=='河南'){
-            location.href = urlArr + "?province=河南";
-        }
+        location.href = urlArr + "?province=" + params.name;
     });
     //使用制定的配置项和数据显示图表
     myChart.setOption(option);
