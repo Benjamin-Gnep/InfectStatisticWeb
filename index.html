@@ -9,6 +9,27 @@
 <script src="js/china.js"></script>
 <script src="js/webData.js"></script>
 <style>
+    .select_style{
+    width:90px; 
+    height:20px; 
+    display: inline;
+    background:url(mytest/demo/bg.jpg) no-repeat 215px; 
+    border:0px solid #ccc; 
+    -moz-border-radius:5px; /* Gecko browsers */ 
+    -webkit-border-radius:5px; /* Webkit browsers */ 
+    border-radius:5px; 
+    margin-left:3%;
+    } 
+    .select_style select{
+    padding:5px;
+    background:transparent; 
+    width:90px; 
+    font-size:15px; 
+    border:none; 
+    height:30px; 
+    -webkit-appearance:none; /*for Webkit browsers*/ 
+    color:LightSlateGray;
+    } 
     body{margin: 0;}
     ul{
     list-style-type: none;
@@ -53,10 +74,27 @@
     <br/>
     <br/>
     
-    <div style="margin-top: 3%;">
+    <div style="margin-top: 10px;margin-bottom: 0px;" >
         <span style="font-size:15px;color:LightSlateGray;margin-left: 3%;">最后更新日期：</span>
         <span id="currentDate" style="font-size:15px;color:LightSlateGray;">2020-03-11</span>
     </div>
+    
+    <div class="select_style"  display="inline" > 
+        <form>
+        <p style="font-size:15px;color:LightSlateGray;margin-left: 3%;margin-top:0px;">选择日期：
+        <select name="selectDate" display="inline"> 
+            <option>2020-03-11</option> 
+            <option>2020-03-10</option> 
+            <option>2020-03-09</option> 
+            <option>2020-03-08</option>
+            <option>2020-03-07</option>
+        </select> 
+        <button id = "okay">确定</button>
+        </p>
+    </form>
+    </div> 
+    
+    <hr/>
     <table align="center" border="0" style="margin-bottom:0px" width="80%" height="10px">
         <tr>
         <th><p style="font-size:30px;color:Crimson;">累计确诊    </p></th>
