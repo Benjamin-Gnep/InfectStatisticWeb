@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>FZU软件工程作业-疫情统计Web</title>
+<script src="js/echarts.min.js"></script>
+<script src="js/webData.js"></script>
+<style>
+    body{margin: 0;}
+    ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    }
+    li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+    li a:hover:not(.active){
+    background-color: #111;
+    }
+    li a:active{
+    background-color: #4CAF50;
+    }
+    #show{
+        margin: 5%;
+        padding: 14px 16px;
+        background-color: #B8C91B;
+        color: white;
+    }
+    footer{margin-top:30%;width:100%;height:60px;}
+</style>
+</head>
+
+<body>
+    <ul>
+      <li><a href="index.html" style="float:left">疫情地图</a></li>
+     <li><a href="areaData.html?province=澳门" style="float:left">区域统计</a></li>
+     <li><a href="tableData.html" style="float:left">数据总览</a></li>
+     <li><a href="about.html" style="float:right">关于</a></li>
+    </ul>
+    <br/>
+    <br/>
+    <br/>
+    <div style="margin-top:0%;margin-left: 15%;width:95%;width:50">
+    <form>
+    <p style="font-size:18px;">选择省份：
+    <select id="provinceName" size = "1" >
+    <option value = "澳门">澳门</option>
+    <option value = "安徽">安徽</option>
+    <option value = "北京">北京</option>
+    <option value = "重庆">重庆</option>
+    <option value = "福建">福建</option>
+    <option value = "甘肃">甘肃</option>
+    <option value = "广东">广东</option>
+    <option value = "广西">广西</option>
+    <option value = "贵州">贵州</option>
+    <option value = "海南">海南</option>
+    <option value = "河北">河北</option>
+    <option value = "河南">河南</option>
+    <option value = "黑龙江">黑龙江</option>
+    <option value = "湖北">湖北</option>
+    <option value = "湖南">湖南</option>
+    <option value = "吉林">吉林</option>
+    <option value = "江苏">江苏</option>
+    <option value = "江西">江西</option>
+    <option value = "辽宁">辽宁</option>
+    <option value = "内蒙古">内蒙古</option>
+    <option value = "宁夏">宁夏</option>
+    <option value = "青海">青海</option>
+    <option value = "山东">山东</option>
+    <option value = "山西">山西</option>
+    <option value = "陕西">陕西</option>
+    <option value = "上海">上海</option>
+    <option value = "四川">四川</option>
+    <option value = "天津">天津</option>
+    <option value = "台湾">台湾</option>
+    <option value = "西藏">西藏</option>
+    <option value = "香港">香港</option>
+    <option value = "新疆">新疆</option>
+    <option value = "云南">云南</option>
+    <option value = "浙江">浙江</option>
+    </select>
+    <button id = "okay">确定</button>
+    </p>
+    </form>
+    </div>
+    <hr/>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 900px;height: 600px;margin: 10%;" align="center"></div>
+
+<script>
+    var qs = (function(a) {
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i)
+        {
+            var p=a[i].split('=');
+            if (p.length != 2) continue;
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+    })(window.location.search.substr(1).split('&'));
+
+    function setSelectChecked(selectId, checkValue){  
+        var select = document.getElementById(selectId);  
+        for (var i = 0; i < select.options.length; i++){
+            if (select.options[i].value == checkValue){  
+                select.options[i].selected = true;  
+                break;  
+            }  
+        }  
+    }
+
+    let obj = eval(dataJson);
+    let pName = qs["province"];
+    setSelectChecked("provinceName",pName);
+
+    let okay = document.getElementById("okay");
+    okay.addEventListener("click",function (e){
+        e.preventDefault();
+        let form = document.getElementById("provinceName")
+        let selected = form.options[form.selectedIndex].text;
+        location.search = "?province=" + selected;
+    });
+
+</script>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById("main"));
+    // 指定图表的配置项和数据
+    var option = {
+        //颜色
+        color:['Crimson', 'Orange', 'Green','DarkBlue'],
+        // 标题
+        title: {
+            text: pName + "近期趋势",
+            subtext:'点击右上角图标切换视图',
+            left:'left',
+            borderColor:'red',
+            borderWidth:0
+        },
+        // 工具箱
+        toolbox: {
+            show: true,
+            feature:{
+                saveAsImage:{
+                    show:true
+                },
+                restore:{
+                    show:false
+                },
+                dataView:{
+                    show:false
+                },
+                dataZoom:{
+                    show:false
+                },
+                magicType:{
+                    type:['line','bar']
+                }
+
+            }
+        },
+        tooltip:{
+            trigger:'axis'
+        },
+        // 图例
+        legend: {
+            data: ['新增确诊人数',"新增疑似人数","新增治愈人数","新增死亡人数"]
+        },
+        // x轴
+        xAxis: {
+            data: ["2020-03-07", "2020-03-08", "2020-03-09", "2020-03-10", "2020-03-11", ]
+        },
+        yAxis: [{
+           axisLine:{
+                lineStyle:{
+                    color:'black',
+                }
+            } 
+        }],
+        // 数据
+        series: [{
+            name: '新增确诊人数',
+            type: 'bar',
+            data: [obj["2020-03-07"][pName].add[0]
+                , obj["2020-03-08"][pName].add[0]
+                , obj["2020-03-09"][pName].add[0]
+                , obj["2020-03-10"][pName].add[0]
+                , obj["2020-03-11"][pName].add[0]],
+            markPoint:{
+                data:[
+                    {type:'max',name:'最大值'},
+                    {type:'min',name:'最小值',symbol:'arrow'}
+                ]
+            },
+            markLine:{
+                data:[
+                    {type: 'average',name:'平均值'}
+                ]
+            },
+            label:{
+            normal:{show:false,}
+            }
+        },
+        {
+            name: '新增疑似人数',
+            type: 'bar',
+            data: [obj["2020-03-07"][pName].add[2]
+                , obj["2020-03-08"][pName].add[2]
+                , obj["2020-03-09"][pName].add[2]
+                , obj["2020-03-10"][pName].add[2]
+                , obj["2020-03-11"][pName].add[2]],
+            markPoint:{
+                data:[
+                    {type:'max',name:'最大值'},
+                    {type:'min',name:'最小值',symbol:'arrow'}
+                ]
+            },
+            markLine:{
+                data:[
+                    {type: 'average',name:'平均值'}
+                ]
+            }
+        },
+        {
+            name: '新增治愈人数',
+            type: 'bar',
+            data: [obj["2020-03-07"][pName].add[3]
+                , obj["2020-03-08"][pName].add[3]
+                , obj["2020-03-09"][pName].add[3]
+                , obj["2020-03-10"][pName].add[3]
+                , obj["2020-03-11"][pName].add[3]],
+            markPoint:{
+                data:[
+                    {type:'max',name:'最大值'},
+                    {type:'min',name:'最小值',symbol:'arrow'}
+                ]
+            },
+            markLine:{
+                data:[
+                    {type: 'average',name:'平均值'}
+                ]
+            }
+        },
+        {
+            name: '新增死亡人数',
+            type: 'bar',
+            data: [obj["2020-03-07"][pName].add[3]
+                , obj["2020-03-08"][pName].add[3]
+                , obj["2020-03-09"][pName].add[3]
+                , obj["2020-03-10"][pName].add[3]
+                , obj["2020-03-11"][pName].add[3]],
+            markPoint:{
+                data:[
+                    {type:'max',name:'最大值'},
+                    {type:'min',name:'最小值',symbol:'arrow'}
+                ]
+            },
+            markLine:{
+                data:[
+                    {type: 'average',name:'平均值'}
+                ]
+            }
+        }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+</script>
+
+</body>
+</html>

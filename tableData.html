@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>FZU软件工程作业-疫情统计Web</title>
+<style>
+    th,td {
+                height: 25px;
+                line-height: 25px;
+                text-align: center;
+                border: 1px solid #ccc;
+            }       
+            th {
+                background: #eee;
+                font-weight: normal;
+            }       
+            tr {
+                background: #fff;
+            }       
+            tr:hover {
+                background: #cc0;
+            }       
+            td a {
+                color: #06f;
+                text-decoration: none;
+            }       
+            td a:hover {
+                color: #06f;
+                text-decoration: underline;
+            }
+    body{margin: 0;}
+    ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    }
+    li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+    li a:hover:not(.active){
+    background-color: #111;
+    }
+    li a:active{
+    background-color: #4CAF50;
+    }
+    #show{
+        margin: 5%;
+        padding: 14px 16px;
+        background-color: #B8C91B;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <ul>
+    <li><a href="index.html" style="float:left">疫情地图</a></li>
+    <li><a href="areaData.html" style="float:left">区域统计</a></li>
+    <li><a href="tableData.html" style="float:left">数据总览</a></li>
+    <li><a href="about.html" style="float:right">关于</a></li>
+    </ul>
+    <div style="margin-top: 80px;margin-bottom: 20px;">
+        <span style="font-size:15px;color:LightSlateGray;margin-left: 3%;">最后更新日期：</span>
+        <span id="currentDate" style="font-size:15px;color:LightSlateGray;">2020-03-11</span>
+    </div>
+    <hr/>
+    <table border="1" align="center" width="80%" style="margin-bottom: 30px;">
+    <tr>
+        <th>地区</th><th>确诊人数</th><th>疑似人数</th><th>治愈人数</th><th>死亡人数</th>
+    </tr>
+    <tr>
+        <td>全国</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+    </tr>
+    <tr>
+        <td>澳门</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>安徽</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>北京</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>重庆</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>福建</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>甘肃</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>广东</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>广西</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+
+    <tr>
+        <td>贵州</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>海南</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>河北</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>河南</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>黑龙江</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>湖北</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>湖南</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>吉林</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>江苏</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>江西</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>辽宁</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>内蒙古</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>宁夏</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>青海</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>山东</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>山西</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>陕西</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>上海</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>四川</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>天津</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>台湾</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>西藏</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>香港</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>新疆</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>云南</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+    <tr>
+        <td>浙江</td> <td></td> <td></td> <td></td> <td></td>
+    </tr>
+</table>
+</body>
+</html>
