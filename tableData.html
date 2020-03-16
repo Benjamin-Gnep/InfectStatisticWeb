@@ -73,116 +73,30 @@
         <span id="currentDate" style="font-size:15px;color:LightSlateGray;">2020-03-11</span>
     </div>
     <hr/>
-    <table border="1" align="center" width="80%" style="margin-bottom: 30px;">
-    <tr>
-        <th>地区</th><th>确诊人数</th><th>疑似人数</th><th>治愈人数</th><th>死亡人数</th>
-    </tr>
-    <tr>
-        <td>全国</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td>
-    </tr>
-    <tr>
-        <td>澳门</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>安徽</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>北京</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>重庆</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>福建</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>甘肃</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>广东</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>广西</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
+    <p id = "chart">
+    </p>
 
-    <tr>
-        <td>贵州</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>海南</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>河北</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>河南</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>黑龙江</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>湖北</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>湖南</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>吉林</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>江苏</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>江西</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>辽宁</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>内蒙古</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>宁夏</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>青海</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>山东</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>山西</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>陕西</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>上海</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>四川</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>天津</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>台湾</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>西藏</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>香港</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>新疆</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>云南</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-    <tr>
-        <td>浙江</td> <td></td> <td></td> <td></td> <td></td>
-    </tr>
-</table>
+<script src="js/webData.js"></script>
+<script>
+    let obj = eval(dataJson);
+    let date = document.getElementById('currentDate');
+    date = date.textContent;
+    let str = "";
+    str += '<table border="1" align="center" width="80%" style="margin-bottom: 30px;">';
+    str += '<tr><th>地区</th><th>确诊人数</th><th>疑似人数</th><th>治愈人数</th><th>死亡人数</th></tr>';
+
+    for(x in obj[date]){
+        str += "<tr>";
+        str += "<td>" + x + "</td>";
+        str += "<td>" + obj[date][x].current[0] + "</td>";
+        str += "<td>" + obj[date][x].current[1] + "</td>";
+        str += "<td>" + obj[date][x].current[3] + "</td>";
+        str += "<td>" + obj[date][x].current[4] + "</td>";
+        str += "</tr>";
+    }
+
+    document.getElementById("chart").innerHTML = str;
+    
+</script>
 </body>
 </html>
