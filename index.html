@@ -10,8 +10,6 @@
 <script src="js/webData.js"></script>
 <style>
     .select_style{
-    width:90px; 
-    height:20px; 
     display: inline;
     background:url(mytest/demo/bg.jpg) no-repeat 215px; 
     border:0px solid #ccc; 
@@ -76,13 +74,13 @@
     
     <div style="margin-top: 10px;margin-bottom: 0px;" >
         <span style="font-size:15px;color:LightSlateGray;margin-left: 3%;">最后更新日期：</span>
-        <span id="currentDate" style="font-size:15px;color:LightSlateGray;">2020-03-11</span>
+        <span style="font-size:15px;color:LightSlateGray;">2020-03-11</span>
     </div>
     
     <div class="select_style"  display="inline" > 
         <form>
         <p style="font-size:15px;color:LightSlateGray;margin-left: 3%;margin-top:0px;">选择日期：
-        <select name="selectDate" display="inline"> 
+        <select id="selectDate" display="inline"> 
             <option>2020-03-11</option> 
             <option>2020-03-10</option> 
             <option>2020-03-09</option> 
@@ -91,7 +89,7 @@
         </select> 
         <button id = "okay">确定</button>
         </p>
-    </form>
+        </form>
     </div> 
     
     <hr/>
@@ -120,186 +118,196 @@
 <div id="container" style="position:fixed;height: 90%;width:95%;background:white;margin:25px 25px;"></div>
 
 <script>
+    let select = document.getElementById("selectDate")
+    let currentDate = select.options[select.selectedIndex].text;
     let obj = eval(dataJson);
-    let date = document.getElementById("currentDate");
-    let num1 = document.getElementById("totalIP");
-    let num2 = document.getElementById("currentSP");
-    let num3 = document.getElementById("totalCure");
-    let num4 = document.getElementById("totalDeath");
-    
-    num1.textContent = obj[currentDate.textContent]["全国"].current[0];
-    num2.textContent = obj[currentDate.textContent]["全国"].current[2];
-    num3.textContent = obj[currentDate.textContent]["全国"].current[3];
-    num4.textContent = obj[currentDate.textContent]["全国"].current[4];
-
-    // 全国省份列表
-    var dataMap = [{ name: '北京' }, { name: '天津' }, { name: '上海' }, { name: '重庆' }, { name: '河北' }, { name: '河南' }, { name: '云南' }, { name: '辽宁' }, { name: '黑龙江' }, { name: '湖南' }, { name: '安徽' }, { name: '山东' },
-    { name: '新疆' }, { name: '江苏' }, { name: '浙江' }, { name: '江西' }, { name: '湖北' }, { name: '广西' }, { name: '甘肃' }, { name: '山西' }, { name: '内蒙古' }, { name: '陕西' }, { name: '吉林' }, { name: '福建' }, { name: '贵州' },
-    { name: '广东' }, { name: '青海' }, { name: '西藏' }, { name: '四川' }, { name: '宁夏' }, { name: '海南' }, { name: '台湾' }, { name: '香港' }, { name: '澳门' }]
-
-    // 绘制图表，准备数据
-   option = {
-    dataRange: {
-            color: ['Crimson','OrangeRed','Orange','Bisque','OldLace','White'],
-            range: [0, 100],
-            min: 0,
-            max: 100,
-            show: true,
-            realtime: true,
-            calculable: true,
-        },
-    title : {
-        text: '疫情统计地图',
-        subtext: 'FZU软件工程实践作业（数据为虚构）',
-        left: 'center'
-
-    },
-    tooltip : {
-        trigger: 'item'
-    },
-    legend: {
-        orient: 'vertical',
-        left: 'left',
-        data:['现有确诊','现有疑似']
-    },
-    visualMap: {
-        min: 0,
-        max: 1000,
-        left: 'left',
-        top: 'bottom',
-
-        text:['高','低'],           // 文本，默认为数值文本
-        calculable : true
-    },
-    toolbox: {
-        show: true,
-        orient : 'vertical',
-        left: 'right',
-        top: 'center',
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    series : [
-        {
-            name: '现有确诊',
-            type: 'map',
-            mapType: 'china',
-            roam: false,
-            label: {
-                normal: {
-                    show: false
-                },
-                emphasis: {
-                    show: true
-                }
-            },
-            data:[
-                {name: '北京',value: obj[currentDate.textContent]["北京"].current[1]},
-                {name: '天津',value: obj[currentDate.textContent]["天津"].current[1]},
-                {name: '上海',value: obj[currentDate.textContent]["上海"].current[1]},
-                {name: '重庆',value: obj[currentDate.textContent]["重庆"].current[1]},
-                {name: '河北',value: obj[currentDate.textContent]["河北"].current[1]},
-                {name: '河南',value: obj[currentDate.textContent]["河南"].current[1]},
-                {name: '云南',value: obj[currentDate.textContent]["云南"].current[1]},
-                {name: '辽宁',value: obj[currentDate.textContent]["辽宁"].current[1]},
-                {name: '黑龙江',value: obj[currentDate.textContent]["黑龙江"].current[1]},
-                {name: '湖南',value: obj[currentDate.textContent]["湖南"].current[1]},
-                {name: '安徽',value: obj[currentDate.textContent]["安徽"].current[1]},
-                {name: '山东',value: obj[currentDate.textContent]["山东"].current[1]},
-                {name: '新疆',value: obj[currentDate.textContent]["新疆"].current[1]},
-                {name: '江苏',value: obj[currentDate.textContent]["江苏"].current[1]},
-                {name: '浙江',value: obj[currentDate.textContent]["浙江"].current[1]},
-                {name: '江西',value: obj[currentDate.textContent]["江西"].current[1]},
-                {name: '湖北',value: obj[currentDate.textContent]["湖北"].current[1]},
-                {name: '广西',value: obj[currentDate.textContent]["广西"].current[1]},
-                {name: '甘肃',value: obj[currentDate.textContent]["甘肃"].current[1]},
-                {name: '山西',value: obj[currentDate.textContent]["山西"].current[1]},
-                {name: '内蒙古',value: obj[currentDate.textContent]["内蒙古"].current[1]},
-                {name: '陕西',value: obj[currentDate.textContent]["陕西"].current[1]},
-                {name: '吉林',value: obj[currentDate.textContent]["吉林"].current[1]},
-                {name: '福建',value: obj[currentDate.textContent]["福建"].current[1]},
-                {name: '贵州',value: obj[currentDate.textContent]["贵州"].current[1]},
-                {name: '广东',value: obj[currentDate.textContent]["广东"].current[1]},
-                {name: '青海',value: obj[currentDate.textContent]["青海"].current[1]},
-                {name: '西藏',value: obj[currentDate.textContent]["西藏"].current[1]},
-                {name: '四川',value: obj[currentDate.textContent]["四川"].current[1]},
-                {name: '宁夏',value: obj[currentDate.textContent]["宁夏"].current[1]},
-                {name: '海南',value: obj[currentDate.textContent]["海南"].current[1]},
-                {name: '台湾',value: obj[currentDate.textContent]["台湾"].current[1]},
-                {name: '香港',value: obj[currentDate.textContent]["香港"].current[1]},
-                {name: '澳门',value: obj[currentDate.textContent]["澳门"].current[1]}
-            ]
-        },
-
-        {
-            name: '现有疑似',
-            type: 'map',
-            mapType: 'china',
-            roam: false,
-            label: {
-                normal: {
-                    show: false
-                },
-                emphasis: {
-                    show: true
-                }
-            },
-            data:[
-                {name: '北京',value: obj[currentDate.textContent]["北京"].current[2]},
-                {name: '天津',value: obj[currentDate.textContent]["天津"].current[2]},
-                {name: '上海',value: obj[currentDate.textContent]["上海"].current[2]},
-                {name: '重庆',value: obj[currentDate.textContent]["重庆"].current[2]},
-                {name: '河北',value: obj[currentDate.textContent]["河北"].current[2]},
-                {name: '河南',value: obj[currentDate.textContent]["河南"].current[2]},
-                {name: '云南',value: obj[currentDate.textContent]["云南"].current[2]},
-                {name: '辽宁',value: obj[currentDate.textContent]["辽宁"].current[2]},
-                {name: '黑龙江',value: obj[currentDate.textContent]["黑龙江"].current[2]},
-                {name: '湖南',value: obj[currentDate.textContent]["湖南"].current[2]},
-                {name: '安徽',value: obj[currentDate.textContent]["安徽"].current[2]},
-                {name: '山东',value: obj[currentDate.textContent]["山东"].current[2]},
-                {name: '新疆',value: obj[currentDate.textContent]["新疆"].current[2]},
-                {name: '江苏',value: obj[currentDate.textContent]["江苏"].current[2]},
-                {name: '浙江',value: obj[currentDate.textContent]["浙江"].current[2]},
-                {name: '江西',value: obj[currentDate.textContent]["江西"].current[2]},
-                {name: '湖北',value: obj[currentDate.textContent]["湖北"].current[2]},
-                {name: '广西',value: obj[currentDate.textContent]["广西"].current[2]},
-                {name: '甘肃',value: obj[currentDate.textContent]["甘肃"].current[2]},
-                {name: '山西',value: obj[currentDate.textContent]["山西"].current[2]},
-                {name: '内蒙古',value: obj[currentDate.textContent]["内蒙古"].current[2]},
-                {name: '陕西',value: obj[currentDate.textContent]["陕西"].current[2]},
-                {name: '吉林',value: obj[currentDate.textContent]["吉林"].current[2]},
-                {name: '福建',value: obj[currentDate.textContent]["福建"].current[2]},
-                {name: '贵州',value: obj[currentDate.textContent]["贵州"].current[2]},
-                {name: '广东',value: obj[currentDate.textContent]["广东"].current[2]},
-                {name: '青海',value: obj[currentDate.textContent]["青海"].current[2]},
-                {name: '西藏',value: obj[currentDate.textContent]["西藏"].current[2]},
-                {name: '四川',value: obj[currentDate.textContent]["四川"].current[2]},
-                {name: '宁夏',value: obj[currentDate.textContent]["宁夏"].current[2]},
-                {name: '海南',value: obj[currentDate.textContent]["海南"].current[2]},
-                {name: '台湾',value: obj[currentDate.textContent]["台湾"].current[2]},
-                {name: '香港',value: obj[currentDate.textContent]["香港"].current[2]},
-                {name: '澳门',value: obj[currentDate.textContent]["澳门"].current[2]}
-            ]
-        }
-    ]
-};
-
-
-
-    //初始化echarts实例
-    var myChart = echarts.init(document.getElementById('container'));
-    myChart.on('click', function (params){ 
-        var city = params.name;
-        console.log(params.name);
-        var urlArr = 'areaData.html';
-        location.href = urlArr + "?province=" + params.name;
+    chart();
+    okay.addEventListener("click",function (e){
+        e.preventDefault();
+        let form = document.getElementById("selectDate")
+        currentDate = form.options[form.selectedIndex].text;
+        chart();
     });
-    //使用制定的配置项和数据显示图表
-    myChart.setOption(option);
+    function chart(){
+        let num1 = document.getElementById("totalIP");
+        let num2 = document.getElementById("currentSP");
+        let num3 = document.getElementById("totalCure");
+        let num4 = document.getElementById("totalDeath");
+        
+        num1.textContent = obj[currentDate]["全国"].current[0];
+        num2.textContent = obj[currentDate]["全国"].current[2];
+        num3.textContent = obj[currentDate]["全国"].current[3];
+        num4.textContent = obj[currentDate]["全国"].current[4];
+
+        // 全国省份列表
+        var dataMap = [{ name: '北京' }, { name: '天津' }, { name: '上海' }, { name: '重庆' }, { name: '河北' }, { name: '河南' }, { name: '云南' }, { name: '辽宁' }, { name: '黑龙江' }, { name: '湖南' }, { name: '安徽' }, { name: '山东' },
+        { name: '新疆' }, { name: '江苏' }, { name: '浙江' }, { name: '江西' }, { name: '湖北' }, { name: '广西' }, { name: '甘肃' }, { name: '山西' }, { name: '内蒙古' }, { name: '陕西' }, { name: '吉林' }, { name: '福建' }, { name: '贵州' },
+        { name: '广东' }, { name: '青海' }, { name: '西藏' }, { name: '四川' }, { name: '宁夏' }, { name: '海南' }, { name: '台湾' }, { name: '香港' }, { name: '澳门' }]
+
+        // 绘制图表，准备数据
+    option = {
+        dataRange: {
+                color: ['Crimson','OrangeRed','Orange','Bisque','OldLace','White'],
+                range: [0, 100],
+                min: 0,
+                max: 100,
+                show: true,
+                realtime: true,
+                calculable: true,
+            },
+        title : {
+            text: '疫情统计地图',
+            subtext: 'FZU软件工程实践作业（数据为虚构）',
+            left: 'center'
+
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data:['现有确诊','现有疑似']
+        },
+        visualMap: {
+            min: 0,
+            max: 1000,
+            left: 'left',
+            top: 'bottom',
+
+            text:['高','低'],           // 文本，默认为数值文本
+            calculable : true
+        },
+        toolbox: {
+            show: true,
+            orient : 'vertical',
+            left: 'right',
+            top: 'center',
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        series : [
+            {
+                name: '现有确诊',
+                type: 'map',
+                mapType: 'china',
+                roam: false,
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                data:[
+                    {name: '北京',value: obj[currentDate]["北京"].current[1]},
+                    {name: '天津',value: obj[currentDate]["天津"].current[1]},
+                    {name: '上海',value: obj[currentDate]["上海"].current[1]},
+                    {name: '重庆',value: obj[currentDate]["重庆"].current[1]},
+                    {name: '河北',value: obj[currentDate]["河北"].current[1]},
+                    {name: '河南',value: obj[currentDate]["河南"].current[1]},
+                    {name: '云南',value: obj[currentDate]["云南"].current[1]},
+                    {name: '辽宁',value: obj[currentDate]["辽宁"].current[1]},
+                    {name: '黑龙江',value: obj[currentDate]["黑龙江"].current[1]},
+                    {name: '湖南',value: obj[currentDate]["湖南"].current[1]},
+                    {name: '安徽',value: obj[currentDate]["安徽"].current[1]},
+                    {name: '山东',value: obj[currentDate]["山东"].current[1]},
+                    {name: '新疆',value: obj[currentDate]["新疆"].current[1]},
+                    {name: '江苏',value: obj[currentDate]["江苏"].current[1]},
+                    {name: '浙江',value: obj[currentDate]["浙江"].current[1]},
+                    {name: '江西',value: obj[currentDate]["江西"].current[1]},
+                    {name: '湖北',value: obj[currentDate]["湖北"].current[1]},
+                    {name: '广西',value: obj[currentDate]["广西"].current[1]},
+                    {name: '甘肃',value: obj[currentDate]["甘肃"].current[1]},
+                    {name: '山西',value: obj[currentDate]["山西"].current[1]},
+                    {name: '内蒙古',value: obj[currentDate]["内蒙古"].current[1]},
+                    {name: '陕西',value: obj[currentDate]["陕西"].current[1]},
+                    {name: '吉林',value: obj[currentDate]["吉林"].current[1]},
+                    {name: '福建',value: obj[currentDate]["福建"].current[1]},
+                    {name: '贵州',value: obj[currentDate]["贵州"].current[1]},
+                    {name: '广东',value: obj[currentDate]["广东"].current[1]},
+                    {name: '青海',value: obj[currentDate]["青海"].current[1]},
+                    {name: '西藏',value: obj[currentDate]["西藏"].current[1]},
+                    {name: '四川',value: obj[currentDate]["四川"].current[1]},
+                    {name: '宁夏',value: obj[currentDate]["宁夏"].current[1]},
+                    {name: '海南',value: obj[currentDate]["海南"].current[1]},
+                    {name: '台湾',value: obj[currentDate]["台湾"].current[1]},
+                    {name: '香港',value: obj[currentDate]["香港"].current[1]},
+                    {name: '澳门',value: obj[currentDate]["澳门"].current[1]}
+                ]
+            },
+
+            {
+                name: '现有疑似',
+                type: 'map',
+                mapType: 'china',
+                roam: false,
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                data:[
+                    {name: '北京',value: obj[currentDate]["北京"].current[2]},
+                    {name: '天津',value: obj[currentDate]["天津"].current[2]},
+                    {name: '上海',value: obj[currentDate]["上海"].current[2]},
+                    {name: '重庆',value: obj[currentDate]["重庆"].current[2]},
+                    {name: '河北',value: obj[currentDate]["河北"].current[2]},
+                    {name: '河南',value: obj[currentDate]["河南"].current[2]},
+                    {name: '云南',value: obj[currentDate]["云南"].current[2]},
+                    {name: '辽宁',value: obj[currentDate]["辽宁"].current[2]},
+                    {name: '黑龙江',value: obj[currentDate]["黑龙江"].current[2]},
+                    {name: '湖南',value: obj[currentDate]["湖南"].current[2]},
+                    {name: '安徽',value: obj[currentDate]["安徽"].current[2]},
+                    {name: '山东',value: obj[currentDate]["山东"].current[2]},
+                    {name: '新疆',value: obj[currentDate]["新疆"].current[2]},
+                    {name: '江苏',value: obj[currentDate]["江苏"].current[2]},
+                    {name: '浙江',value: obj[currentDate]["浙江"].current[2]},
+                    {name: '江西',value: obj[currentDate]["江西"].current[2]},
+                    {name: '湖北',value: obj[currentDate]["湖北"].current[2]},
+                    {name: '广西',value: obj[currentDate]["广西"].current[2]},
+                    {name: '甘肃',value: obj[currentDate]["甘肃"].current[2]},
+                    {name: '山西',value: obj[currentDate]["山西"].current[2]},
+                    {name: '内蒙古',value: obj[currentDate]["内蒙古"].current[2]},
+                    {name: '陕西',value: obj[currentDate]["陕西"].current[2]},
+                    {name: '吉林',value: obj[currentDate]["吉林"].current[2]},
+                    {name: '福建',value: obj[currentDate]["福建"].current[2]},
+                    {name: '贵州',value: obj[currentDate]["贵州"].current[2]},
+                    {name: '广东',value: obj[currentDate]["广东"].current[2]},
+                    {name: '青海',value: obj[currentDate]["青海"].current[2]},
+                    {name: '西藏',value: obj[currentDate]["西藏"].current[2]},
+                    {name: '四川',value: obj[currentDate]["四川"].current[2]},
+                    {name: '宁夏',value: obj[currentDate]["宁夏"].current[2]},
+                    {name: '海南',value: obj[currentDate]["海南"].current[2]},
+                    {name: '台湾',value: obj[currentDate]["台湾"].current[2]},
+                    {name: '香港',value: obj[currentDate]["香港"].current[2]},
+                    {name: '澳门',value: obj[currentDate]["澳门"].current[2]}
+                ]
+            }
+        ]
+    };
+
+
+
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('container'));
+        myChart.on('click', function (params){ 
+            var city = params.name;
+            console.log(params.name);
+            var urlArr = 'areaData.html';
+            location.href = urlArr + "?province=" + params.name;
+        });
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+    }
 </script>
 
 <div style="text-align:center;clear:both;">
